@@ -9,8 +9,8 @@ import "../globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "RecipeThreads",
-  description: "Threads for recipes",
+  title: "Ambrosia",
+  description: "Threads for cooking!",
 };
 
 function Header() {

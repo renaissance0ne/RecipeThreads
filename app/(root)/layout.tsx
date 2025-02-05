@@ -11,8 +11,8 @@ import Bottombar from "@/components/shared/Bottombar";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "RecipeThreads",
-  description: "Threads for recipes",
+  title: "Ambrosia",
+  description: "Threads for cooking!",
 };
 
 export default function RootLayout({
