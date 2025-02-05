@@ -2,6 +2,7 @@ import React from "react";
 import type { Metadata } from "next";
 import { ClerkProvider, SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
 import { Inter } from "next/font/google";
+import { dark } from '@clerk/themes'
 
 import "../globals.css";
 
@@ -30,7 +31,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang='en'>
       <body className={`${inter.className} bg-dark-1`}>
-        <ClerkProvider>
+        <ClerkProvider 
+          appearance={{
+          baseTheme: dark,
+          }}>
           <Header />
           {children}
         </ClerkProvider>
