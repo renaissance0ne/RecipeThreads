@@ -181,7 +181,6 @@ export async function getActivity(userId: string) {
     throw error;
   }
 }
-
 export async function fetchUserReplies(userId: string) {
   try {
     connectToDB();

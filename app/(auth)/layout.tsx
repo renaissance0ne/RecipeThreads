@@ -3,7 +3,6 @@ import type { Metadata } from "next";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Inter } from "next/font/google";
 import { dark } from '@clerk/themes';
-import Navbar from './sign-up/Navbar';
 import "../globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -60,7 +59,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               socialButtonsVariant: 'iconButton'
             }
           }}>
-          <Navbar />
           <main className="relative">
             {children}
           </main>

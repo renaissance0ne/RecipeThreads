@@ -2,7 +2,7 @@
 
 import * as Clerk from '@clerk/elements/common';
 import * as SignIn from '@clerk/elements/sign-in';
-import SpotlightCard from '@/components/cards/SpotlightCard';
+import SpotlightCard from '@/components/effects/SpotlightCard';
 import React, { useState, ChangeEvent, ReactElement } from 'react';
 
 export default function SignInPage(): ReactElement {

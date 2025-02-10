@@ -29,7 +29,7 @@ const Navbar = () => {
   const [activeSection, setActiveSection] = useState('home');
 
   const navItems = [
-    { href: '#home', label: 'Home' },
+    { href: '', label: 'Home' },
     { href: '#about', label: 'About Us' },
     { href: '#explore', label: 'Explore' },
     { href: '#difference', label: 'Why Choose Us' },
@@ -73,8 +73,8 @@ const Navbar = () => {
             </SignedIn>
             <SignedOut>
               <div className="flex items-center space-x-4">
-                <Link href="/sign-in">
-                  <span className="text-white hover:text-purple-300 font-medium transition-colors cursor-pointer">
+              <Link href="/sign-in">
+                  <span className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg transition-colors font-medium cursor-pointer">
                     Sign In
                   </span>
                 </Link>
