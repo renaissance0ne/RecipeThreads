@@ -2,6 +2,9 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   /* config options here */
+  typescript: {
+    ignoreBuildErrors: true,
+  },
   experimental: {
     serverActions: {
       //bodySizeLimit: 10 * 1024 * 1024,
@@ -28,9 +31,6 @@ const nextConfig: NextConfig = {
         hostname: "placehold.co",
       },
     ],
-  },
-  typescript: {
-    ignoreBuildErrors: true,
   },
 };
 
