@@ -9,7 +9,7 @@ import RepliesTab from "@/components/shared/RepliesTab";
 import ProfileHeader from "@/components/shared/ProfileHeader";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
-import { fetchUser } from "@/lib/actions/user.actions";
+import { fetchUser, fetchUserReplies } from "@/lib/actions/user.actions";
 
 async function Page({ params }: { params: Promise<{ id: string }> }) {
   const resolvedParams = await params;
@@ -18,6 +18,13 @@ async function Page({ params }: { params: Promise<{ id: string }> }) {
 
   const userInfo = await fetchUser(resolvedParams.id);
   if (!userInfo?.onboarded) redirect("/onboarding");
+  
+  // Make sure we're accessing the threads property correctly
+  const threadCount = userInfo.threads?.length || 0;
+  
+  // Fetch replies to get an accurate count
+  const repliesData = await fetchUserReplies(userInfo.id);
+  const replyCount = repliesData?.replies?.length || 0;
 
   return (
     <section>
@@ -45,7 +52,12 @@ async function Page({ params }: { params: Promise<{ id: string }> }) {
                 <p className="max-sm:hidden">{tab.label}</p>
                 {tab.label === "Threads" && (
                   <p className="ml-1 rounded-sm bg-light-4 px-2 py-1 !text-tiny-medium text-light-2">
-                    {userInfo.threads.length}
+                    {threadCount}
+                  </p>
+                )}
+                {tab.label === "Replies" && (
+                  <p className="ml-1 rounded-sm bg-light-4 px-2 py-1 !text-tiny-medium text-light-2">
+                    {replyCount}
                   </p>
                 )}
               </TabsTrigger>

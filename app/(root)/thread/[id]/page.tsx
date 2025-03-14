@@ -1,67 +1,57 @@
-import { redirect } from "next/navigation";
 import { currentUser } from "@clerk/nextjs/server";
+import { redirect } from "next/navigation";
 
-import Comment from "@/components/forms/Comment";
 import ThreadCard from "@/components/cards/ThreadCard";
+import Pagination from "@/components/shared/Pagination";
 
+import { fetchPosts } from "@/lib/actions/thread.actions";
 import { fetchUser } from "@/lib/actions/user.actions";
-import { fetchThreadById } from "@/lib/actions/thread.actions";
 
-export const revalidate = 0;
-
-export default async function Page(props: { params: { id: string } }) {
-  // Await the entire params object
-  const params = await Promise.resolve(props.params);
-  const { id } = params;
-  if (!id) return null;
-
+export default async function Home(props: {
+  searchParams: { [key: string]: string | undefined };
+}) {
+  // Await searchParams to ensure it’s resolved before usage
+  const searchParams = await props.searchParams;
+  
   const user = await currentUser();
   if (!user) return null;
 
   const userInfo = await fetchUser(user.id);
   if (!userInfo?.onboarded) redirect("/onboarding");
 
-  const thread = await fetchThreadById(id);
+  // Calculate the page number from searchParams
+  const pageNumber = searchParams?.page ? +searchParams.page : 1;
+  const result = await fetchPosts(pageNumber, 30);
 
   return (
-    <section className="relative">
-      <div>
-        <ThreadCard
-          id={thread._id}
-          currentUserId={user.id}
-          parentId={thread.parentId}
-          content={thread.text}
-          author={thread.author}
-          community={thread.community}
-          createdAt={thread.createdAt}
-          comments={thread.children}
-        />
-      </div>
+    <>
+      <h1 className="head-text text-left">Home</h1>
 
-      <div className="mt-7">
-        <Comment
-          threadId={id}
-          currentUserImg={user.imageUrl}
-          currentUserId={JSON.stringify(userInfo._id)}
-        />
-      </div>
+      <section className="mt-9 flex flex-col gap-10">
+        {result.posts.length === 0 ? (
+          <p className="no-result">No threads found</p>
+        ) : (
+          result.posts.map((post) => (
+            <ThreadCard
+              key={post._id}
+              id={post._id}
+              currentUserId={user.id}
+              parentId={post.parentId}
+              content={post.text}
+              author={post.author}
+              community={post.community}
+              createdAt={post.createdAt}
+              comments={post.children}
+            />
+          ))
+        )}
+      </section>
 
-      <div className="mt-10">
-        {thread.children.map((childItem: any) => (
-          <ThreadCard
-            key={childItem._id}
-            id={childItem._id}
-            currentUserId={user.id}
-            parentId={childItem.parentId}
-            content={childItem.text}
-            author={childItem.author}
-            community={childItem.community}
-            createdAt={childItem.createdAt}
-            comments={childItem.children}
-            isComment
-          />
-        ))}
-      </div>
-    </section>
+      <Pagination
+        path="/"
+        pageNumber={pageNumber}
+        isNext={result.isNext}
+      />
+    </>
   );
 }
