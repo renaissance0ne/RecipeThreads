@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 
 import { formatDateString } from "@/lib/utils";
 import DeleteThread from "../forms/DeleteThread";
@@ -39,6 +40,43 @@ function ThreadCard({
   comments,
   isComment,
 }: Props) {
+  // Function to process markdown-like content
+  const processContent = () => {
+    let processedContent = content;
+    
+    // Replace headings (h1 to h6)
+    processedContent = processedContent.replace(/^###### (.*?)$/gm, '<h6>$1</h6>');
+    processedContent = processedContent.replace(/^##### (.*?)$/gm, '<h5>$1</h5>');
+    processedContent = processedContent.replace(/^#### (.*?)$/gm, '<h4>$1</h4>');
+    processedContent = processedContent.replace(/^### (.*?)$/gm, '<h3>$1</h3>');
+    processedContent = processedContent.replace(/^## (.*?)$/gm, '<h2>$1</h2>');
+    processedContent = processedContent.replace(/^# (.*?)$/gm, '<h1>$1</h1>');
+    
+    // Replace underscores with underline tags
+    // Match text between underscores, but not if preceded by backslash
+    processedContent = processedContent.replace(
+      /(?<![\\])_(.+?)(?<![\\])_/g, 
+      '<span style="text-decoration: underline;">$1</span>'
+    );
+    
+    // Replace **text** with bold tags
+    processedContent = processedContent.replace(
+      /(?<![\\])\*\*(.+?)(?<![\\])\*\*/g,
+      '<strong>$1</strong>'
+    );
+    
+    // Replace *text* with italic tags
+    processedContent = processedContent.replace(
+      /(?<![\\])\*(.+?)(?<![\\])\*/g,
+      '<em>$1</em>'
+    );
+    
+    // Replace new lines with <br> tags
+    processedContent = processedContent.replace(/\n/g, '<br>');
+    
+    return processedContent;
+  };
+
   return (
     <article
       className={`flex w-full flex-col rounded-xl ${
@@ -51,7 +89,7 @@ function ThreadCard({
             <Link href={`/profile/${author.id}`} className='relative h-11 w-11'>
               <Image
                 src={author.image}
-                alt='user_community_image'
+                alt='Profile image'
                 fill
                 className='cursor-pointer rounded-full'
               />
@@ -67,7 +105,10 @@ function ThreadCard({
               </h4>
             </Link>
 
-            <p className='mt-2 text-small-regular text-light-2'>{content}</p>
+            <div 
+              className='mt-2 text-small-regular text-light-2'
+              dangerouslySetInnerHTML={{ __html: processContent() }}
+            />
 
             <div className={`${isComment && "mb-10"} mt-5 flex flex-col gap-3`}>
               <div className='flex gap-3.5'>
@@ -81,7 +122,7 @@ function ThreadCard({
                 <Link href={`/thread/${id}`}>
                   <Image
                     src='/assets/reply.svg'
-                    alt='heart'
+                    alt='reply'
                     width={24}
                     height={24}
                     className='cursor-pointer object-contain'
@@ -89,14 +130,14 @@ function ThreadCard({
                 </Link>
                 <Image
                   src='/assets/repost.svg'
-                  alt='heart'
+                  alt='repost'
                   width={24}
                   height={24}
                   className='cursor-pointer object-contain'
                 />
                 <Image
                   src='/assets/share.svg'
-                  alt='heart'
+                  alt='share'
                   width={24}
                   height={24}
                   className='cursor-pointer object-contain'

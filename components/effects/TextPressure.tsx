@@ -28,7 +28,7 @@ const TextPressure: React.FC<TextPressureProps> = ({
     alpha = false,
     flex = true,
     stroke = false,
-    scale = false,
+    scale = true, // Default to true to ensure text fits
     textColor = '#FFFFFF',
     strokeColor = '#FF0000',
     strokeWidth = 2,
@@ -87,7 +87,8 @@ const TextPressure: React.FC<TextPressureProps> = ({
 
         const { width: containerW, height: containerH } = containerRef.current.getBoundingClientRect();
 
-        let newFontSize = containerW / (chars.length / 2);
+        // Adjusted calculation to better fit the text
+        let newFontSize = (containerW * 0.9) / (chars.length * 0.6);
         newFontSize = Math.max(newFontSize, minFontSize);
 
         setFontSize(newFontSize);
@@ -194,6 +195,8 @@ const TextPressure: React.FC<TextPressureProps> = ({
                     margin: 0,
                     fontWeight: 100,
                     color: stroke ? undefined : textColor,
+                    width: '100%', // Ensure full width
+                    textAlign: 'center', // Center text
                 }}
             >
                 {chars.map((char, i) => (
