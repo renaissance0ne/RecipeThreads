@@ -4,6 +4,7 @@ import { useState } from "react";
 
 import { formatDateString } from "@/lib/utils";
 import DeleteThread from "../forms/DeleteThread";
+import LikeButton from "../shared/LikeButton";
 
 interface Props {
   id: string;
@@ -27,6 +28,7 @@ interface Props {
     };
   }[];
   isComment?: boolean;
+  likes?: string[];
 }
 
 function ThreadCard({
@@ -39,6 +41,7 @@ function ThreadCard({
   createdAt,
   comments,
   isComment,
+  likes = [],
 }: Props) {
   // Function to process markdown-like content
   const processContent = () => {
@@ -77,6 +80,10 @@ function ThreadCard({
     return processedContent;
   };
 
+  // Calculate if user has liked this thread
+  const hasUserLiked = likes?.includes(currentUserId) || false;
+  const likesCount = likes?.length || 0;
+
   return (
     <article
       className={`flex w-full flex-col rounded-xl ${
@@ -112,13 +119,13 @@ function ThreadCard({
 
             <div className={`${isComment && "mb-10"} mt-5 flex flex-col gap-3`}>
               <div className='flex gap-3.5'>
-                <Image
-                  src='/assets/heart-gray.svg'
-                  alt='heart'
-                  width={24}
-                  height={24}
-                  className='cursor-pointer object-contain'
+                <LikeButton 
+                  threadId={id.toString()}
+                  userId={currentUserId}
+                  initialLikes={likesCount}
+                  initialLiked={hasUserLiked}
                 />
+
                 <Link href={`/thread/${id}`}>
                   <Image
                     src='/assets/reply.svg'
