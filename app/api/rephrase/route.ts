@@ -28,7 +28,8 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'API key not configured' }, { status: 500 });
     }
 
-    const promptText = `Please correct the grammar and improve the wording and style while preserving the original meaning. Return only one corrected paragraph with appropriate formatting. Use the following rules:
+    const promptText = `Please correct the grammar and improve the wording and style while preserving the original meaning. 
+                        Return only one corrected paragraph with appropriate formatting. Use the following rules:
                         - Convert markdown headings (e.g., "# Heading") into corresponding heading styles (levels 1 to 6).
                         - Underline any text enclosed in underscores (__text__).
                         - Bold any text enclosed in double asterisks (**text**).

@@ -8,16 +8,45 @@ import TextPressure from '@/components/effects/TextPressure';
 import VariableProximity from '@/components/effects/VariableProximity';
 import Ribbons from '@/components/effects/Ribbons';
 import GradientText from '@/components/effects/GradientText';
+import InfiniteMenu from '@/components/effects/InfiniteMenu';
 
 export default function HomePage() {
   const containerRef = useRef<HTMLDivElement>(null);
   const heroRef = useRef<HTMLDivElement>(null);
+  
+  const items = [
+    {
+      image: 'https://picsum.photos/300/300?grayscale',
+      link: 'https://google.com/',
+      title: 'Item 1',
+      description: 'This is pretty cool, right?'
+    },
+    {
+      image: 'https://picsum.photos/400/400?grayscale',
+      link: 'https://google.com/',
+      title: 'Item 2',
+      description: 'This is pretty cool, right?'
+    },
+    {
+      image: 'https://picsum.photos/500/500?grayscale',
+      link: 'https://google.com/',
+      title: 'Item 3',
+      description: 'This is pretty cool, right?'
+    },
+    {
+      image: 'https://picsum.photos/600/600?grayscale',
+      link: 'https://google.com/',
+      title: 'Item 4',
+      description: 'This is pretty cool, right?'
+    }
+  ];
 
   useEffect(() => {
     const link = document.createElement('link');
     link.href = 'https://fonts.googleapis.com/css2?family=Roboto+Flex:wght@100..900&display=swap';
     link.rel = 'stylesheet';
     document.head.appendChild(link);
+    
     return () => {
       document.head.removeChild(link);
     };
@@ -133,6 +162,10 @@ export default function HomePage() {
       </div>
 
       <AboutUs />
+      <div style={{ height: '600px', position: 'relative' }} className='relative z-10'>
+        <InfiniteMenu items={items} />
+      </div>
+      
     </div>
   );
 }

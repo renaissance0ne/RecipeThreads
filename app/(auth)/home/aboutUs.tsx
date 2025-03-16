@@ -5,11 +5,11 @@ import GradientText from '@/components/effects/GradientText';
 
 const AboutUs: React.FC = () => {
   return (
-    <section className="w-full bg-secondary-500 py-12 sm:py-16">
-      <div className="container mx-auto px-4 sm:px-6">
+    <section className="w-full min-h-screen bg-black py-12 sm:py-16">
+      <div className="max-w-full px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
           {/* Content */}
-          <div className="lg:w-1/2 space-y-4 sm:space-y-6">
+          <div className="lg:w-1/2 space-y-4 sm:space-y-6 max-w-3xl mx-auto lg:mx-0">
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white">
               <GradientText
                 colors={["#ffffff", "#f0f0f0", "#ffffff"]}
@@ -32,17 +32,11 @@ const AboutUs: React.FC = () => {
             <p className="text-white/90 text-base sm:text-lg">
               Our mission is to make home cooking accessible, enjoyable, and inspiring for everyone. Through our platform, you can discover recipes, learn techniques, and connect with fellow food lovers from around the world.
             </p>
-            
-            <div className="pt-4">
-              <button className="px-6 py-2 sm:px-8 sm:py-3 bg-white text-secondary-600 rounded-lg font-semibold hover:bg-white/90 transition duration-300">
-                Learn More
-              </button>
-            </div>
           </div>
           
           {/* Image */}
           <div className="lg:w-1/2 mt-8 lg:mt-0">
-            <div className="relative rounded-xl overflow-hidden shadow-2xl">
+            <div className="relative rounded-xl overflow-hidden shadow-2xl max-w-3xl mx-auto lg:mx-0">
               <img 
                 src="/api/placeholder/600/400" 
                 alt="Ambrosia community cooking together" 
