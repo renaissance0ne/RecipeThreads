@@ -81,8 +81,8 @@ function ThreadCard({
   };
 
   // Calculate if user has liked this thread
-  const hasUserLiked = likes?.includes(currentUserId) || false;
-  const likesCount = likes?.length || 0;
+  const hasUserLiked = likes.includes(currentUserId);
+  const likesCount = likes.length;
 
   return (
     <article

@@ -27,12 +27,18 @@ const threadSchema = new mongoose.Schema({
       ref: "Thread",
     },
   ],
-  likes: [
-    {
-      type: String, // Using string type for userId to match with Clerk user IDs
-      default: [],
-    },
-  ],
+  likes: {
+    type: [String], // Change to array of strings
+    default: [],
+  },
+}, {
+  // This ensures proper serialization when converting to JSON
+  toJSON: { 
+    transform: function(doc, ret) {
+      ret.likes = Array.isArray(ret.likes) ? ret.likes : [];
+      return ret;
+    }
+  }
 });
 
 const Thread = mongoose.models.Thread || mongoose.model("Thread", threadSchema);

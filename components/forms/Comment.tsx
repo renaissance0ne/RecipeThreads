@@ -28,7 +28,7 @@ import Dock from "@/components/cards/Dock";
 
 import { CommentValidation } from "@/lib/validations/thread";
 import { addCommentToThread } from "@/lib/actions/thread.actions";
-import { rephraseText } from "@/utils/gemini";
+import { rephraseText } from "@/lib/utils/gemini";
 
 interface Props {
   threadId: string;

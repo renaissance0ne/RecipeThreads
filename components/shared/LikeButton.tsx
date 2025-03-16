@@ -21,17 +21,21 @@ function LikeButton({ threadId, userId, initialLikes = 0, initialLiked = false }
     setIsLoading(true);
     
     try {
+      // Optimistically update the UI
       if (isLiked) {
-        await unlikeThread(threadId, userId);
         setLikesCount((prev) => Math.max(0, prev - 1));
+        setIsLiked(false);
+        await unlikeThread(threadId, userId);
       } else {
-        await likeThread(threadId, userId);
         setLikesCount((prev) => prev + 1);
+        setIsLiked(true);
+        await likeThread(threadId, userId);
       }
-      
-      setIsLiked(!isLiked);
     } catch (error) {
       console.error("Error toggling like:", error);
+      // Revert UI state if there's an error
+      setIsLiked(initialLiked);
+      setLikesCount(initialLikes);
     } finally {
       setIsLoading(false);
     }

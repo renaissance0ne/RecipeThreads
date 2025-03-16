@@ -30,8 +30,8 @@ import { Spinner } from "@/components/ui/spinner"; // You'll need to create this
 import { ThreadValidation } from "@/lib/validations/thread";
 import { createThread } from "@/lib/actions/thread.actions";
 import Dock from "@/components/cards/Dock";
-import { rephraseText } from "@/utils/gemini";
-import { testRephrase } from '@/utils/api-test';
+import { rephraseText } from "@/lib/utils/gemini";
+import { testRephrase } from '@/lib/utils/api-test';
 
 
 interface Props {

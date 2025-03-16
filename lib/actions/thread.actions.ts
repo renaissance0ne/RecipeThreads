@@ -3,7 +3,7 @@
 import { revalidatePath } from "next/cache";
 
 import { connectToDB } from "../mongoose";
-
+import { serializeThread } from "../utils/thread.utils";
 import User from "../models/user.model";
 import Thread from "../models/thread.model";
 import Community from "../models/community.model";
@@ -190,9 +190,15 @@ export async function fetchThreadById(threadId: string) {
           },
         ],
       })
+      .lean() // Convert to plain JavaScript object
       .exec();
 
-    return thread;
+    if (!thread) {
+      throw new Error("Thread not found");
+    }
+
+    // Serialize the thread
+    return serializeThread(thread);
   } catch (err) {
     console.error("Error while fetching thread:", err);
     throw new Error("Unable to fetch thread");
@@ -256,9 +262,11 @@ export async function likeThread(threadId: string, userId: string) {
       await thread.save();
     }
 
-    return thread;
+    // Return a plain object (not a Mongoose document)
+    return { success: true };
   } catch (error: any) {
-    throw new Error(`Failed to like thread: ${error.message}`);
+    console.error(`Failed to like thread: ${error.message}`);
+    return { success: false, error: error.message };
   }
 }
 
@@ -277,9 +285,11 @@ export async function unlikeThread(threadId: string, userId: string) {
     thread.likes = thread.likes.filter((id: string) => id !== userId);
     await thread.save();
 
-    return thread;
+    // Return a plain object (not a Mongoose document)
+    return { success: true };
   } catch (error: any) {
-    throw new Error(`Failed to unlike thread: ${error.message}`);
+    console.error(`Failed to unlike thread: ${error.message}`);
+    return { success: false, error: error.message };
   }
 }
 
