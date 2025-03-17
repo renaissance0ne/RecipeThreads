@@ -224,3 +224,27 @@ export async function fetchUserReplies(userId: string) {
     throw new Error(`Failed to fetch user replies: ${error.message}`);
   }
 }
+
+export async function fetchSuggestedUsers({
+  userId,
+  limit = 5
+}: {
+  userId: string;
+  limit?: number;
+}) {
+  try {
+    connectToDB();
+
+    // Find users excluding the current user
+    const users = await User.find({ 
+      id: { $ne: userId } 
+    })
+    .limit(limit)
+    .sort({ createdAt: -1 });  // Show newest users first
+
+    return { users };
+  } catch (error) {
+    console.error("Error fetching suggested users:", error);
+    throw error;
+  }
+}

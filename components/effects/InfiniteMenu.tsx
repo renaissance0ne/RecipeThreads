@@ -1387,7 +1387,7 @@ const InfiniteMenu: FC<InfiniteMenuProps> = ({ items = [] }) => {
           </p>
 
           {/* Action Button */}
-          <div
+          {/* <div
             onClick={handleButtonClick}
             className={`
           absolute
@@ -1414,7 +1414,7 @@ const InfiniteMenu: FC<InfiniteMenuProps> = ({ items = [] }) => {
             <p className="select-none relative text-[#060606] top-[2px] text-[26px]">
               &#x2197;
             </p>
-          </div>
+          </div> */}
         </>
       )}
     </div>

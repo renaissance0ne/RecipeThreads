@@ -302,3 +302,24 @@ export async function deleteCommunity(communityId: string) {
     throw error;
   }
 }
+
+export async function fetchCommunitiesByMemberCount({
+  limit = 5
+}: {
+  limit?: number;
+}) {
+  try {
+    connectToDB();
+
+    // Find communities and populate members
+    const communities = await Community.find()
+      .populate("members")
+      .sort({ "members.length": -1 }) // Sort by member count in descending order
+      .limit(limit);
+
+    return { communities };
+  } catch (error) {
+    console.error("Error fetching communities by member count:", error);
+    throw error;
+  }
+}
