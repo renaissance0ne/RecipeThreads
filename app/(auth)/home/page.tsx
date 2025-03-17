@@ -13,32 +13,26 @@ import InfiniteMenu from '@/components/effects/InfiniteMenu';
 export default function HomePage() {
   const containerRef = useRef<HTMLDivElement>(null);
   const heroRef = useRef<HTMLDivElement>(null);
-  
+
   const items = [
     {
-      image: 'https://picsum.photos/300/300?grayscale',
+      image: '/assets/ifmenu-rephrase.jpeg',
       link: 'https://google.com/',
-      title: 'Item 1',
-      description: 'This is pretty cool, right?'
+      title: 'Rephrase',
+      description: 'Users can rephrase their content'
     },
     {
-      image: 'https://picsum.photos/400/400?grayscale',
+      image: '/assets/ifmenu-community.jpg',
       link: 'https://google.com/',
-      title: 'Item 2',
-      description: 'This is pretty cool, right?'
+      title: 'Communities',
+      description: 'Users can join communities and share recipes and get insights'
     },
     {
-      image: 'https://picsum.photos/500/500?grayscale',
+      image: '/assets/ifmenu-reply.png',
       link: 'https://google.com/',
-      title: 'Item 3',
-      description: 'This is pretty cool, right?'
+      title: 'Replies',
+      description: 'get instant replies for your questions'
     },
-    {
-      image: 'https://picsum.photos/600/600?grayscale',
-      link: 'https://google.com/',
-      title: 'Item 4',
-      description: 'This is pretty cool, right?'
-    }
   ];
 
   useEffect(() => {
@@ -46,16 +40,23 @@ export default function HomePage() {
     link.href = 'https://fonts.googleapis.com/css2?family=Roboto+Flex:wght@100..900&display=swap';
     link.rel = 'stylesheet';
     document.head.appendChild(link);
-    
+
+    // Add additional font for Why Choose Us section
+    const playfairLink = document.createElement('link');
+    playfairLink.href = 'https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap';
+    playfairLink.rel = 'stylesheet';
+    document.head.appendChild(playfairLink);
+
     return () => {
       document.head.removeChild(link);
+      document.head.removeChild(playfairLink);
     };
   }, []);
 
   return (
     <div className="relative min-h-screen w-full" ref={containerRef}>
       <div className="fixed inset-0" style={{ zIndex: 1 }}>
-        <Ribbons 
+        <Ribbons
           colors={['#6366f1', '#8b5cf6', '#d946ef']}
           baseThickness={15}
           enableFade={true}
@@ -68,10 +69,10 @@ export default function HomePage() {
       <div className='text-3xl md:text-4xl lg:text-5xl font-semibold text-white leading-tight'>
         <Navbar />
       </div>
-      
-      {/* Hero Section */}
-      <div className="relative min-h-screen w-full">
-        <div 
+
+      {/* Hero Section with ID for scrolling */}
+      <div id="home" className="relative min-h-screen w-full">
+        <div
           className="absolute inset-0 w-full h-full"
           style={{
             backgroundImage: "url('/assets/hero.jpg')",
@@ -98,7 +99,7 @@ export default function HomePage() {
                     width={true}
                   />
                 </div>
-                
+
                 <div className="text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight">
                   <GradientText
                     colors={["#6366f1", "#d946ef", "#6366f1", "#d946ef", "#6366f1"]}
@@ -148,7 +149,7 @@ export default function HomePage() {
                 </div>
 
                 <div>
-                  <Link 
+                  <Link
                     href="/sign-up"
                     className="group inline-block px-4 py-3 md:px-6 md:py-4 lg:px-8 lg:py-4 text-base md:text-lg font-semibold text-white bg-gradient-to-r from-purple-600 to-pink-500 rounded-lg shadow-lg hover:from-purple-700 hover:to-pink-600 transform hover:scale-105 transition-all duration-300 cursor-pointer select-none relative z-20"
                   >
@@ -161,11 +162,83 @@ export default function HomePage() {
         </div>
       </div>
 
-      <AboutUs />
-      <div style={{ height: '600px', position: 'relative' }} className='relative z-10'>
+      {/* About Us Section with ID for scrolling */}
+      <div id="about">
+        <AboutUs />
+      </div>
+
+      {/* Explore Section with ID for scrolling */}
+      <div id="explore" style={{ height: '600px', position: 'relative' }} className='relative z-10'>
         <InfiniteMenu items={items} />
       </div>
-      
+
+      {/* Why Choose Us Section with ID for scrolling */}
+      <div id="difference" className="relative py-16 md:py-24 lg:py-32 overflow-hidden">
+        <div
+          className="absolute inset-0 w-full h-full"
+          style={{
+            backgroundImage: "url('/assets/wcubackground.jpg')",
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat',
+            opacity: 0.85,
+          }}
+        />
+
+        <div className="absolute inset-0 bg-black/70" />
+
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="max-w-4xl mx-auto">
+            <div className="text-center mb-12">
+              <h2
+                className="font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400 mb-4 font-['Playfair_Display']"
+                style={{ fontSize: "clamp(3rem, 5vw, 8rem)" }}
+              >
+                Why Choose Us
+              </h2>
+              <div className="h-1 w-24 md:w-32 bg-gradient-to-r from-purple-500 to-pink-500 mx-auto rounded-full"></div>
+            </div>
+
+            <div className="text-white space-y-6 backdrop-blur-sm bg-black/30 p-6 md:p-8 rounded-xl shadow-2xl">
+              <p className="text-lg md:text-xl leading-relaxed font-['Playfair_Display'] font-light">
+                A significant portion of the global population lacks basic cooking skills. For example, in several countries, many people do not cook regularly at home and depend on convenience foods.
+              </p>
+
+              <p className="text-lg md:text-xl leading-relaxed font-['Playfair_Display'] font-light">
+                Our website is a unique cooking discussion platform where users can ask questions about recipes and receive instant answers from fellow cooking enthusiasts. This interactive community encourages young people to engage in home cooking and move away from processed foods.
+              </p>
+
+              <p className="text-lg md:text-xl leading-relaxed font-['Playfair_Display'] font-light">
+                While many websites offer similar services, they often require payment or lack the immediate interaction that our platform guarantees. Unlike other platforms that share recipes through videos and posts but fail to respond to users' comments, our website ensures that users receive instant replies to their questions. We offer all these services for free, making it accessible to everyone.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Team Section with ID for scrolling - Add placeholder if no team section exists yet */}
+      <div id="team" className="relative py-16 md:py-24 lg:py-32 overflow-hidden">
+        <div className="absolute inset-0 bg-black/80" />
+
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="max-w-4xl mx-auto text-center">
+            <h2
+              className="font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400 mb-4 font-['Playfair_Display']"
+              style={{ fontSize: "clamp(3rem, 5vw, 8rem)" }}
+            >
+              Our Team
+            </h2>
+            <div className="h-1 w-24 md:w-32 bg-gradient-to-r from-purple-500 to-pink-500 mx-auto rounded-full mb-8"></div>
+
+            <div className="text-white space-y-6 backdrop-blur-sm bg-black/30 p-6 md:p-8 rounded-xl shadow-2xl">
+              <p className="text-lg md:text-xl leading-relaxed font-['Playfair_Display'] font-light">
+                Meet the passionate team behind Ambrosia. Our diverse group of cooking enthusiasts, food scientists, and tech experts work together to create the best platform for home cooking enthusiasts around the world.
+              </p>
+              {/* You can add team member cards here when available */}
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

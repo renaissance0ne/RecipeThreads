@@ -26,7 +26,7 @@ const AboutUs: React.FC = () => {
             </p>
             
             <p className="text-white/90 text-base sm:text-lg">
-              Founded in 2023, our community brings together cooking enthusiasts of all levels—from beginners just learning to boil water to seasoned home chefs experimenting with molecular gastronomy.
+              Founded in 2025, our community brings together cooking enthusiasts of all levels—from beginners just learning to boil water to seasoned home chefs experimenting with molecular gastronomy.
             </p>
             
             <p className="text-white/90 text-base sm:text-lg">
@@ -38,7 +38,7 @@ const AboutUs: React.FC = () => {
           <div className="lg:w-1/2 mt-8 lg:mt-0">
             <div className="relative rounded-xl overflow-hidden shadow-2xl max-w-3xl mx-auto lg:mx-0">
               <img 
-                src="/api/placeholder/600/400" 
+                src="/assets/aboutus1.jpg" 
                 alt="Ambrosia community cooking together" 
                 className="w-full h-auto"
               />
