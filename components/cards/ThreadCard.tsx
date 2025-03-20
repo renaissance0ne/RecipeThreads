@@ -1,13 +1,14 @@
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
 
 import { formatDateString } from "@/lib/utils";
 import DeleteThread from "../forms/DeleteThread";
 import LikeButton from "../shared/LikeButton";
+import RepostButton from "../shared/RepostButton";
+import ClientThreadContent from "@/components/forms/ClientThreadContent";
 
 interface Props {
-  id: string;
+  id: any; // Changed from string to any to handle MongoDB ObjectId
   currentUserId: string;
   parentId: string | null;
   content: string;
@@ -43,7 +44,14 @@ function ThreadCard({
   isComment,
   likes = [],
 }: Props) {
-  // Function to process markdown-like content
+  // Convert MongoDB ObjectId to string
+  const threadId = id.toString();
+  
+  // Calculate if user has liked this thread
+  const hasUserLiked = likes.includes(currentUserId);
+  const likesCount = likes.length;
+
+  // Process markdown-like content on the server
   const processContent = () => {
     let processedContent = content;
     
@@ -80,9 +88,7 @@ function ThreadCard({
     return processedContent;
   };
 
-  // Calculate if user has liked this thread
-  const hasUserLiked = likes.includes(currentUserId);
-  const likesCount = likes.length;
+  const processedContent = processContent();
 
   return (
     <article
@@ -112,21 +118,24 @@ function ThreadCard({
               </h4>
             </Link>
 
-            <div 
-              className='mt-2 text-small-regular text-light-2'
-              dangerouslySetInnerHTML={{ __html: processContent() }}
+            <ClientThreadContent
+              threadId={threadId}
+              initialContent={content}
+              processedContent={processedContent}
+              currentUserId={currentUserId}
+              authorId={author.id}
             />
 
             <div className={`${isComment && "mb-10"} mt-5 flex flex-col gap-3`}>
               <div className='flex gap-3.5'>
                 <LikeButton 
-                  threadId={id.toString()}
+                  threadId={threadId}
                   userId={currentUserId}
                   initialLikes={likesCount}
                   initialLiked={hasUserLiked}
                 />
 
-                <Link href={`/thread/${id}`}>
+                <Link href={`/thread/${threadId}`}>
                   <Image
                     src='/assets/reply.svg'
                     alt='reply'
@@ -135,13 +144,13 @@ function ThreadCard({
                     className='cursor-pointer object-contain'
                   />
                 </Link>
-                <Image
-                  src='/assets/repost.svg'
-                  alt='repost'
-                  width={24}
-                  height={24}
-                  className='cursor-pointer object-contain'
+                
+                <RepostButton 
+                  threadId={threadId}
+                  userId={currentUserId}
+                  authorId={author.id}
                 />
+                
                 <Image
                   src='/assets/share.svg'
                   alt='share'
@@ -152,7 +161,7 @@ function ThreadCard({
               </div>
 
               {isComment && comments.length > 0 && (
-                <Link href={`/thread/${id}`}>
+                <Link href={`/thread/${threadId}`}>
                   <p className='mt-1 text-subtle-medium text-gray-1'>
                     {comments.length} repl{comments.length > 1 ? "ies" : "y"}
                   </p>
@@ -163,7 +172,7 @@ function ThreadCard({
         </div>
 
         <DeleteThread
-          threadId={JSON.stringify(id)}
+          threadId={threadId}
           currentUserId={currentUserId}
           authorId={author.id}
           parentId={parentId}
@@ -184,7 +193,7 @@ function ThreadCard({
             />
           ))}
 
-          <Link href={`/thread/${id}`}>
+          <Link href={`/thread/${threadId}`}>
             <p className='mt-1 text-subtle-medium text-gray-1'>
               {comments.length} repl{comments.length > 1 ? "ies" : "y"}
             </p>

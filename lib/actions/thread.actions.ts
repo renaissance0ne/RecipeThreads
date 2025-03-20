@@ -326,3 +326,126 @@ export async function getThreadLikesCount(threadId: string) {
     return 0;
   }
 }
+
+// New function to repost a thread
+export async function repostThread(threadId: string, userId: string) {
+  try {
+    connectToDB();
+
+    // Find the thread and check if the user already reposted it
+    const thread = await Thread.findById(threadId);
+    if (!thread) {
+      throw new Error("Thread not found");
+    }
+
+    // Initialize reposts array if it doesn't exist
+    if (!thread.reposts) {
+      thread.reposts = [];
+    }
+
+    // Add the userId to the reposts array if not already there
+    if (!thread.reposts.includes(userId)) {
+      thread.reposts.push(userId);
+      await thread.save();
+    }
+
+    // Return a plain object (not a Mongoose document)
+    return { success: true };
+  } catch (error: any) {
+    console.error(`Failed to repost thread: ${error.message}`);
+    return { success: false, error: error.message };
+  }
+}
+
+// New function to unrepost a thread
+export async function unrepostThread(threadId: string, userId: string) {
+  try {
+    connectToDB();
+
+    // Find the thread
+    const thread = await Thread.findById(threadId);
+    if (!thread) {
+      throw new Error("Thread not found");
+    }
+
+    // Remove the userId from the reposts array if it exists
+    if (thread.reposts) {
+      thread.reposts = thread.reposts.filter((id: string) => id !== userId);
+      await thread.save();
+    }
+
+    // Return a plain object (not a Mongoose document)
+    return { success: true };
+  } catch (error: any) {
+    console.error(`Failed to unrepost thread: ${error.message}`);
+    return { success: false, error: error.message };
+  }
+}
+
+// New function to check if a user has reposted a thread
+export async function hasUserRepostedThread(threadId: string, userId: string) {
+  try {
+    connectToDB();
+
+    const thread = await Thread.findById(threadId);
+    if (!thread || !thread.reposts) {
+      return false;
+    }
+
+    return thread.reposts.includes(userId);
+  } catch (error) {
+    console.error("Error checking if user reposted thread:", error);
+    return false;
+  }
+}
+
+// New function to get reposts count for a thread
+export async function getThreadRepostsCount(threadId: string) {
+  try {
+    connectToDB();
+
+    const thread = await Thread.findById(threadId);
+    if (!thread || !thread.reposts) {
+      return 0;
+    }
+
+    return thread.reposts.length;
+  } catch (error) {
+    console.error("Error getting thread reposts count:", error);
+    return 0;
+  }
+}
+
+// Function to update a thread
+export async function updateThread({
+  threadId,
+  text,
+  path,
+}: {
+  threadId: string;
+  text: string;
+  path: string;
+}) {
+  try {
+    connectToDB();
+
+    // Find and update the thread
+    const updatedThread = await Thread.findByIdAndUpdate(
+      threadId,
+      { text },
+      { new: true } // Return the updated document
+    );
+
+    if (!updatedThread) {
+      throw new Error("Thread not found");
+    }
+
+    revalidatePath(path);
+    
+    return JSON.parse(JSON.stringify(updatedThread));
+  } catch (error: any) {
+    console.error(`Failed to update thread: ${error.message}`);
+    throw new Error(`Failed to update thread: ${error.message}`);
+  }
+}
+
