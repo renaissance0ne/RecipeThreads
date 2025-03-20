@@ -1,4 +1,3 @@
-// lib/utils/thread.utils.ts
 export function serializeThread(thread: any) {
     if (!thread) return null;
     
