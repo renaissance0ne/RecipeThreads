@@ -30,31 +30,13 @@ export default function SignUpPage() {
                           <h2 className="text-lg font-semibold text-white">Create an Account</h2>
                           <p className="text-sm text-gray-400">Join Ambrosia today</p>
                         </div>
-                        
-                        <div className="grid grid-cols-2 gap-x-3">
-                          <Clerk.Connection
-                            name="google"
-                            className="flex items-center gap-x-2 justify-center font-medium border border-gray-700 hover:bg-gray-800 transition-colors text-white py-2 px-3 rounded-lg text-sm"
-                          >
-                            <Clerk.Icon className="size-4" />
-                            Google
-                          </Clerk.Connection>
-                          
-                          <Clerk.Connection
-                            name="facebook"
-                            className="flex items-center gap-x-2 justify-center font-medium border border-gray-700 hover:bg-gray-800 transition-colors text-white py-2 px-3 rounded-lg text-sm"
-                          >
-                            <Clerk.Icon className="size-4" />
-                            Facebook
-                          </Clerk.Connection>
-                        </div>
 
                         <div className="relative">
                           <div className="absolute inset-0 flex items-center">
                             <div className="w-full border-t border-gray-700"></div>
                           </div>
                           <div className="relative flex justify-center text-sm">
-                            <span className="px-2 bg-neutral-900 text-gray-400">or</span>
+                            <span className="px-2 bg-neutral-900 text-gray-400"></span>
                           </div>
                         </div>
 
