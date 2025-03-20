@@ -56,6 +56,12 @@ function ThreadCard({
   const processContent = () => {
     let processedContent = content;
     
+    // Process hyperlinks - do this first to avoid conflicts with other formatting
+    processedContent = processedContent.replace(
+      /\[([^\]]+)\]\(([^)]+)\)/g, 
+      '<a href="$2" target="_blank" rel="noopener noreferrer" class="text-primary-500 underline">$1</a>'
+    );
+    
     // Replace headings (h1 to h6)
     processedContent = processedContent.replace(/^###### (.*?)$/gm, '<h6>$1</h6>');
     processedContent = processedContent.replace(/^##### (.*?)$/gm, '<h5>$1</h5>');
