@@ -5,6 +5,7 @@ import { formatDateString } from "@/lib/utils";
 import DeleteThread from "../forms/DeleteThread";
 import LikeButton from "../shared/LikeButton";
 import RepostButton from "../shared/RepostButton";
+import ShareButton from "../shared/ShareButton";
 import ClientThreadContent from "@/components/forms/ClientThreadContent";
 
 interface Props {
@@ -151,13 +152,7 @@ function ThreadCard({
                   authorId={author.id}
                 />
                 
-                <Image
-                  src='/assets/share.svg'
-                  alt='share'
-                  width={24}
-                  height={24}
-                  className='cursor-pointer object-contain'
-                />
+                <ShareButton threadId={threadId} />
               </div>
 
               {isComment && comments.length > 0 && (
