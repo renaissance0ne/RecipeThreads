@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { 
   WhatsappShareButton, 
@@ -23,9 +23,13 @@ interface ShareButtonProps {
 
 const ShareButton = ({ threadId }: ShareButtonProps) => {
   const [showModal, setShowModal] = useState(false);
+  const [threadUrl, setThreadUrl] = useState('');
   
-  // Construct the thread URL
-  const threadUrl = `${process.env.NEXT_PUBLIC_BASE_URL || window.location.origin}/thread/${threadId}`;
+  useEffect(() => {
+    // Only access window after component has mounted (client-side)
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || window.location.origin;
+    setThreadUrl(`${baseUrl}/thread/${threadId}`);
+  }, [threadId]);
   
   const handleCopyLink = () => {
     navigator.clipboard.writeText(threadUrl);
