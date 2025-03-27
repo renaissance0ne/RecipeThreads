@@ -6,7 +6,7 @@ import VariableProximity from '@/components/effects/VariableProximity';
 import GradientText from '@/components/effects/GradientText';
 import ambrosia from "@/public/assets/ambrosia.png";
 
-const AboutUs: React.FC = () => {
+const aboutUs: React.FC = () => {
   const cardRef = useRef<HTMLDivElement>(null);
   const parallaxItem1 = useRef<HTMLDivElement>(null);
   const parallaxItem2 = useRef<HTMLDivElement>(null);
@@ -181,4 +181,4 @@ const AboutUs: React.FC = () => {
   );
 };
 
-export default AboutUs;
+export default aboutUs;

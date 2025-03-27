@@ -2,7 +2,7 @@
 
 import React, { useRef, useEffect } from 'react';
 import Navbar from './Navbar';
-import AboutUs from './AboutUs';
+import AboutUs from './aboutUs';
 import VariableProximity from '@/components/effects/VariableProximity';
 import GradientText from '@/components/effects/GradientText';
 import Hero from './Hero';
