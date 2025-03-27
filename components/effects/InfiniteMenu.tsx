@@ -1109,7 +1109,7 @@ class InfiniteGridMenu {
     gl.enable(gl.CULL_FACE);
     gl.enable(gl.DEPTH_TEST);
 
-    gl.clearColor(0, 0, 0, 0);
+    gl.clearColor(0.0706, 0.0784, 0.0902, 1);   //bg-color
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
     gl.uniformMatrix4fv(
@@ -1336,7 +1336,7 @@ const InfiniteMenu: FC<InfiniteMenuProps> = ({ items = [] }) => {
         ref={canvasRef}
         className="cursor-grab w-full h-full overflow-hidden relative outline-none active:cursor-grabbing"
       />
-
+      
       {activeItem && (
         <>
           {/* Title */}
@@ -1345,15 +1345,15 @@ const InfiniteMenu: FC<InfiniteMenuProps> = ({ items = [] }) => {
           select-none
           absolute
           font-black
-          [font-size:4rem]
-          left-[1.6em]
+          [font-size:3rem]
+          left-[3em]
           top-1/2
           transform
           translate-x-[20%]
           -translate-y-1/2
           transition-all
           ease-[cubic-bezier(0.25,0.1,0.25,1.0)]
-          text-white
+          text-primary-500
           ${
             isMoving
               ? "opacity-0 pointer-events-none duration-[100ms]"
@@ -1372,10 +1372,10 @@ const InfiniteMenu: FC<InfiniteMenuProps> = ({ items = [] }) => {
           max-w-[10ch]
           text-[1.5rem]
           top-1/2
-          right-[1%]
+          right-[5%]
           transition-all
           ease-[cubic-bezier(0.25,0.1,0.25,1.0)]
-          text-white
+          text-primary-500
           ${
             isMoving
               ? "opacity-0 pointer-events-none duration-[100ms] translate-x-[-60%] -translate-y-1/2"
