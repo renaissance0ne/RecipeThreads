@@ -1,68 +1,112 @@
 'use client'
 
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import Navbar from './Navbar';
 import AboutUs from './aboutUs';
 import VariableProximity from '@/components/effects/VariableProximity';
 import GradientText from '@/components/effects/GradientText';
 import Hero from './Hero';
-
 import Ribbons from '@/components/effects/Ribbons';
-import InfiniteMenu from '@/components/effects/InfiniteMenu';
+import CircularGallery from '@/components/effects/CircularGallery';
+
+// Loading component
+const LoadingScreen = () => (
+  <div className="fixed inset-0 flex flex-col items-center justify-center bg-dark-1 z-50">
+    {/* Animated gradient circle */}
+    <div className="relative w-16 h-16">
+      <div className="absolute inset-0 rounded-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 animate-spin"></div>
+      <div className="absolute inset-1 rounded-full bg-dark-1"></div>
+    </div>
+    <p className="mt-4 text-light-2 font-medium">Loading experience...</p>
+  </div>
+);
 
 export default function HomePage() {
+  const [loading, setLoading] = useState(true);
+  const [resourcesLoaded, setResourcesLoaded] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null!);
   const heroRef = useRef<HTMLDivElement>(null!);
 
-  const items = [
-    {
-      image: '/assets/book.png',
-      link: 'https://google.com/',
-      title: 'Recipes',
-      description: 'Share your favorite recipes with the community and discover new dishes from around the world.'
-    },
-    {
-      image: '/assets/chat.png',
-      link: 'https://google.com/',
-      title: 'Real-time Discussion',
-      description: 'Ask questions and get immediate answers from experienced cooks and food enthusiasts.'
-    },
-    {
-      image: '/assets/like.png',
-      link: 'https://google.com/',
-      title: 'Like & Recommend',
-      description: 'Like your favorite recipes and cooking tips to help others find the best content.'
-    },
-    {
-      image: '/assets/groups.png',
-      link: 'https://google.com/',
-      title: 'Communities',
-      description: 'Join specialized cooking groups focused on cuisines, dietary needs, or cooking techniques.'
-    },
-    {
-      image: '/assets/share.png',
-      link: 'https://google.com/',
-      title: 'Share',
-      description: 'Easily share cooking discoveries and successes with friends on other platforms.'
-    },
-    {
-      image: '/assets/gemini.png',
-      link: 'https://google.com/',
-      title: 'Rephrase',
-      description: 'Rephrase and correct grammar your thread with one click.'
-    },
+  // Define the items array with the correct format for your CircularGallery component
+  const galleryItems = [
+    { image: '/assets/book.png', text: 'Recipes' },
+    { image: '/assets/chat.png', text: 'Real-time Discussion' },
+    { image: '/assets/like.png', text: 'Like & Recommend' },
+    { image: '/assets/groups.png', text: 'Communities' },
+    { image: '/assets/share.png', text: 'Share' },
+    { image: '/assets/gemini.png', text: 'Rephrase' }
   ];
 
   useEffect(() => {
+    // Load fonts
     const link = document.createElement('link');
     link.href = 'https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap';
     link.rel = 'stylesheet';
     document.head.appendChild(link);
 
+    // Simulate loading of resources
+    const timer = setTimeout(() => {
+      setLoading(false);
+      
+      // Force a layout recalculation after components are mounted
+      setTimeout(() => {
+        window.dispatchEvent(new Event('resize'));
+      }, 100);
+    }, 1500);
+
     return () => {
       document.head.removeChild(link);
+      clearTimeout(timer);
     };
   }, []);
+
+  // Preload images
+  useEffect(() => {
+    const preloadImages = async () => {
+      const imagePromises = galleryItems.map((item) => {
+        return new Promise((resolve, reject) => {
+          const img = new Image();
+          img.src = item.image;
+          img.onload = resolve;
+          img.onerror = reject;
+        });
+      });
+
+      try {
+        await Promise.all(imagePromises);
+        setResourcesLoaded(true);
+      } catch (error) {
+        console.error('Failed to load some images', error);
+        // Still mark resources as loaded to continue
+        setResourcesLoaded(true);
+      }
+    };
+
+    preloadImages();
+  }, []);
+
+  // Effect to handle window resize
+  useEffect(() => {
+    // Function to handle resize
+    const handleResize = () => {
+      // This will trigger any components that depend on window dimensions
+    };
+
+    // Add event listener
+    window.addEventListener('resize', handleResize);
+    
+    // Trigger initial resize after component mount
+    if (!loading && resourcesLoaded) {
+      window.dispatchEvent(new Event('resize'));
+    }
+
+    // Clean up
+    return () => window.removeEventListener('resize', handleResize);
+  }, [loading, resourcesLoaded]);
+
+  if (loading) {
+    return <LoadingScreen />;
+  }
 
   return (
     <div className="relative min-h-screen w-full" ref={containerRef}>
@@ -86,37 +130,40 @@ export default function HomePage() {
       <div id="about">
         <AboutUs />
       </div>
-
-
       
       <div id="explore" className="relative z-10" style={{ height: '500px' }}>
-      <section id="about" className="py-20 bg-dark-2 z-10">
-      <div className="container mx-auto px-6 lg:px-12 z-10">
-      <div className="mb relative bg-dark-2">
-          <div className="flex items-center">
-            <GradientText
-              colors={["#6366f1", "#d946ef", "#6366f1", "#d946ef", "#6366f1"]}
-              animationSpeed={0}
-              fontSize="clamp(1.5rem, 4vw, 2.5rem)"
-              className="block font-['Roboto_Flex'] cursor-default select"
-            >
-              <VariableProximity
-                label="Explore"
-                fromFontVariationSettings="'wght' 300, 'wdth' 100"
-                toFontVariationSettings="'wght' 900, 'wdth' 150"
-                containerRef={containerRef}
-                radius={150}
-                falloff="exponential"
-                className="block font-['Roboto_Flex'] cursor-default select-none"
-              />
-            </GradientText>
+        <section id="about" className="py-20 bg-dark-2 z-10">
+          <div className="container mx-auto px-6 lg:px-12 z-10">
+            <div className="mb relative bg-dark-2">
+              <div className="flex items-center">
+                <GradientText
+                  colors={["#6366f1", "#d946ef", "#6366f1", "#d946ef", "#6366f1"]}
+                  animationSpeed={0}
+                  fontSize="clamp(1.5rem, 4vw, 2.5rem)"
+                  className="block font-['Roboto_Flex'] cursor-default select"
+                >
+                  <VariableProximity
+                    label="Explore"
+                    fromFontVariationSettings="'wght' 300, 'wdth' 100"
+                    toFontVariationSettings="'wght' 900, 'wdth' 150"
+                    containerRef={containerRef}
+                    radius={150}
+                    falloff="exponential"
+                    className="block font-['Roboto_Flex'] cursor-default select-none"
+                  />
+                </GradientText>
+              </div>
+              {/* Short, centered underline */}
+              <div className="absolute left-0 w-24 h-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 mt-2 rounded-full"></div>
+            </div>
           </div>
-          {/* Short, centered underline */}
-          <div className="absolute left-0 w-24 h-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 mt-2 rounded-full"></div>
-        </div>
-        </div>
         </section>
-        <InfiniteMenu items={items} />
+        <CircularGallery 
+          items={galleryItems} 
+          bend={1} 
+          textColor="#877EFF" 
+          borderRadius={0.05} 
+        />
       </div>
       
     </div>

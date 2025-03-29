@@ -1,19 +1,28 @@
+// File: app/(root)/page.tsx - Server Component
 import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 
 import ThreadCard from "@/components/cards/ThreadCard";
 import Pagination from "@/components/shared/Pagination";
-
 import { fetchPosts } from "@/lib/actions/thread.actions";
 import { fetchUser } from "@/lib/actions/user.actions";
 
-export default async function Home(props: {
+// Simple loading component for server-side loading
+export function Loading() {
+  return (
+    <div className="flex flex-col items-center justify-center min-h-[50vh]">
+      <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary-500"></div>
+      <p className="text-light-2 mt-4">Loading your feed...</p>
+    </div>
+  );
+}
+
+export default async function Home({
+  searchParams,
+}: {
   searchParams: { [key: string]: string | undefined };
 }) {
-  // Await searchParams to ensure it's resolved before usage
-  const searchParams = await props.searchParams;
-  
   const user = await currentUser();
   
   // If user is not signed in, show registration prompt
@@ -60,7 +69,9 @@ export default async function Home(props: {
   if (!userInfo?.onboarded) redirect("/onboarding");
 
   // Calculate the page number from searchParams
-  const pageNumber = searchParams?.page ? +searchParams.page : 1;
+  const pageNumber = searchParams?.page ? parseInt(searchParams.page) : 1;
+  
+  // Fetch posts directly in the server component like your original code
   const result = await fetchPosts(pageNumber, 30);
 
   return (

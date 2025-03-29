@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import TextPressure from '@/components/effects/TextPressure';
 import VariableProximity from '@/components/effects/VariableProximity';
 import GradientText from '@/components/effects/GradientText';
@@ -12,6 +12,17 @@ interface HeroProps {
 }
 
 export default function Hero({ heroRef, containerRef }: HeroProps) {
+  // Add state to force rerender after component mount
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    // Mark component as mounted to trigger rerender
+    setMounted(true);
+    
+    // Optional: Force layout recalculation
+    window.dispatchEvent(new Event('resize'));
+  }, []);
+
   return (
     <div id="home" className="relative min-h-screen w-full">
       <div
@@ -31,15 +42,17 @@ export default function Hero({ heroRef, containerRef }: HeroProps) {
           <div className="max-w-5xl">
             <div className="py-8 md:py-12 lg:py-16 space-y-8 md:space-y-12">
               <div className="w-full h-24 md:h-32 lg:h-40">
-                <TextPressure
-                  text="AMBROSIA"
-                  fontFamily="Inter"
-                  textColor="transparent"
-                  className="bg-gradient-to-r from-primary-500 to-secondary-500 bg-clip-text text-4xl sm:text-5xl md:text-6xl lg:text-7xl cursor-default"
-                  minFontSize={20}
-                  scale={true}
-                  width={true}
-                />
+                {mounted && (
+                  <TextPressure
+                    text="AMBROSIA"
+                    fontFamily="Inter"
+                    textColor="transparent"
+                    className="bg-gradient-to-r from-primary-500 to-secondary-500 bg-clip-text text-4xl sm:text-5xl md:text-6xl lg:text-7xl cursor-default"
+                    minFontSize={20}
+                    scale={true}
+                    width={true}
+                  />
+                )}
               </div>
 
               <div className="text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight">
