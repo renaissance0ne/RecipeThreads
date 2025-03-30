@@ -8,16 +8,14 @@ import GradientText from '@/components/effects/GradientText';
 import Hero from './Hero';
 import Ribbons from '@/components/effects/Ribbons';
 import CircularGallery from '@/components/effects/CircularGallery';
+import RiveLoading from "@/components/shared/RiveLoading";
 
 // Loading component
 const LoadingScreen = () => (
   <div className="fixed inset-0 flex flex-col items-center justify-center bg-dark-1 z-50">
-    {/* Animated gradient circle */}
     <div className="relative w-16 h-16">
-      <div className="absolute inset-0 rounded-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 animate-spin"></div>
-      <div className="absolute inset-1 rounded-full bg-dark-1"></div>
+      return <RiveLoading />;
     </div>
-    <p className="mt-4 text-light-2 font-medium">Loading experience...</p>
   </div>
 );
 
