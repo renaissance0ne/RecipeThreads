@@ -35,7 +35,7 @@ export default function Hero({ heroRef, containerRef }: HeroProps) {
         }}
       />
 
-      <div className="absolute inset-0 bg-gradient-to-r from-black/80 to-black/40" />
+      <div className="absolute inset-0 bg-gradient-to-r from-black/80 to-black/10" />
 
       <div ref={heroRef} className="relative min-h-screen pt-16 md:pt-24 lg:pt-32">
         <div className="container mx-auto px-4 sm:px-6 md:px-8">
