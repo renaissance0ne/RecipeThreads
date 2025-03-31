@@ -51,7 +51,7 @@ export default function SignInPage(): ReactElement {
                 <div className="w-full border-t border-gray-700"></div>
               </div>
               <div className="relative flex justify-center text-sm">
-                <span className="px-2 bg-neutral-900 text-gray-400">or</span>
+                <h3 className="px-2 bg-neutral-900 text-gray-400">or</h3>
               </div>
             </div>
 
