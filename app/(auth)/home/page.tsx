@@ -7,10 +7,10 @@ import AboutUs from './aboutUs';
 import Explore from './Explore';
 import ChooseUs from './ChooseUs'
 import Team from './Team';
+import Footer from './Footer';
 
 import Ribbons from '@/components/effects/Ribbons';
 import RiveLoading from "@/components/shared/RiveLoading";
-
 
 // Loading component
 const LoadingScreen = () => (
@@ -67,7 +67,7 @@ export default function HomePage() {
 
   return (
     <div className="relative min-h-screen w-full" ref={containerRef}>
-      <div className="fixed inset-0" style={{ zIndex: 1 }}>
+      {/* <div className="fixed inset-0" style={{ zIndex: 1 }}>
         <Ribbons
           colors={['#6366f1', '#8b5cf6', '#d946ef']}
           baseThickness={15}
@@ -76,7 +76,7 @@ export default function HomePage() {
           speedMultiplier={0.4}
           maxAge={300}
         />
-      </div>
+      </div> */}
 
       <Navbar />
 
@@ -100,6 +100,7 @@ export default function HomePage() {
         <Team />
       </div>
       
+      <Footer />
     </div>
   );
 }

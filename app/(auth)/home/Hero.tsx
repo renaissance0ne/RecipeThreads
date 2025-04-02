@@ -12,14 +12,9 @@ interface HeroProps {
 }
 
 export default function Hero({ heroRef, containerRef }: HeroProps) {
-  // Add state to force rerender after component mount
   const [mounted, setMounted] = useState(false);
-
   useEffect(() => {
-    // Mark component as mounted to trigger rerender
     setMounted(true);
-    
-    // Optional: Force layout recalculation
     window.dispatchEvent(new Event('resize'));
   }, []);
 
@@ -60,34 +55,18 @@ export default function Hero({ heroRef, containerRef }: HeroProps) {
                   colors={["#6366f1", "#d946ef", "#6366f1", "#d946ef", "#6366f1"]}
                   animationSpeed={75}
                   fontSize="clamp(1.5rem, 4vw, 2.5rem)"
-                  className="italic block font-['Roboto_Flex'] cursor-default select-none"
-                >
-                  <VariableProximity
-                    label="Home Cooking, "
-                    fromFontVariationSettings="'wght' 300, 'wdth' 100"
-                    toFontVariationSettings="'wght' 900, 'wdth' 150"
-                    containerRef={containerRef}
-                    radius={150}
-                    falloff="exponential"
-                    className="italic block font-['Roboto_Flex'] cursor-default select-none"
-                  />
+                  className="italic block font-['Inter'] cursor-default select-none"
+                > 
+                  Home Cooking,
                 </GradientText>
                 <div className="relative cursor-default">
                   <GradientText
                     colors={["#6366f1", "#d946ef", "#6366f1", "#d946ef", "#6366f1"]}
                     animationSpeed={75}
                     fontSize="clamp(1.5rem, 4vw, 2.5rem)"
-                    className="italic block font-['Roboto_Flex'] cursor-default select-none"
+                    className="italic block font-['Inter'] cursor-default select-none"
                   >
-                    <VariableProximity
-                      label="Reimagined"
-                      fromFontVariationSettings="'wght' 300, 'wdth' 100"
-                      toFontVariationSettings="'wght' 900, 'wdth' 150"
-                      containerRef={containerRef}
-                      radius={150}
-                      falloff="exponential"
-                      className="italic block font-['Roboto_Flex'] cursor-default select-none"
-                    />
+                    Reimagined
                   </GradientText>
                 </div>
               </div>

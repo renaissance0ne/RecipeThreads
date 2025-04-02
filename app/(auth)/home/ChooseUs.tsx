@@ -27,9 +27,9 @@ export default function ChooseUs() {
   ];
 
   return (
-    <section className="relative py-24 bg-dark-1 overflow-hidden">
+    <section className="relative py-24 bg-dark-2 overflow-hidden">
       {/* MASSIVE title that takes up the entire screen */}
-      <div className="h-screen w-full flex items-center justify-center mb-24">
+      <div className="h-screen w-full flex items-center justify-center mb-30 mt-48">
         <div className="w-full px-4">
           <GradientText
             colors={["#6366f1", "#d946ef", "#6366f1"]}
