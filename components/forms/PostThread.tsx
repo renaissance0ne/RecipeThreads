@@ -53,7 +53,6 @@ function PostThread({ userId }: Props) {
   
   // State for text selection
   const [isSelecting, setIsSelecting] = useState(false);
-  const [selectionPosition, setSelectionPosition] = useState({ x: 0, y: 0 });
   const [selectedText, setSelectedText] = useState("");
   const [previewMode, setPreviewMode] = useState(false);
   const [previewContent, setPreviewContent] = useState("");
@@ -92,15 +91,6 @@ function PostThread({ userId }: Props) {
         }
         
         setIsSelecting(true);
-        
-        // Get the position for the dock
-        const range = selection.getRangeAt(0);
-        const rect = range.getBoundingClientRect();
-        
-        setSelectionPosition({
-          x: rect.left + (rect.width / 2),
-          y: rect.top - 40 + window.scrollY
-        });
       } else {
         // Small delay to allow for clicking the dock items
         setTimeout(() => {
@@ -179,7 +169,6 @@ function PostThread({ userId }: Props) {
         newCursorPos = end + 4;
         break;
       case "hyperlink":
-        // Open dialog for URL input
         openLinkDialog();
         return;
       case "rephrase":
@@ -296,7 +285,6 @@ function PostThread({ userId }: Props) {
   ];
   
   return (
-    // Wrap everything with Form component to make form context available everywhere
     <Form {...form}>
       <div className="flex items-center justify-end mb-4 gap-2">
         <Button 
@@ -337,9 +325,25 @@ function PostThread({ userId }: Props) {
             name='thread'
             render={({ field }) => (
               <FormItem className='flex w-full flex-col gap-3'>
-                <FormLabel className='text-base-semibold text-light-2'>
-                  Content
-                </FormLabel>
+                <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-2">
+                  <FormLabel className='text-base-semibold text-light-2'>
+                    Content
+                  </FormLabel>
+                  
+                  {/* Dock positioned above textarea */}
+                  <div className="w-full md:w-auto py-2">
+                    <Dock 
+                      items={formattingItems}
+                      panelHeight={68}
+                      baseItemSize={40}
+                      magnification={60}
+                      isVisible={isSelecting}
+                      position={{ x: 0, y: 0 }}
+                      className="bg-black backdrop-blur-md mx-auto"
+                    />
+                  </div>
+                </div>
+                
                 <FormControl className='no-focus border border-dark-4 bg-dark-3 text-light-1'>
                   <Textarea 
                     rows={15} 
@@ -361,7 +365,7 @@ function PostThread({ userId }: Props) {
         </Button>
       </form>
 
-      {/* Hyperlink Dialog - Now inside Form context */}
+      {/* Hyperlink Dialog */}
       <Dialog open={showLinkDialog} onOpenChange={setShowLinkDialog}>
         <DialogContent className="bg-dark-3 text-light-1 border-dark-4">
           <DialogHeader>
@@ -397,17 +401,6 @@ function PostThread({ userId }: Props) {
           </DialogFooter>
         </DialogContent>
       </Dialog>
-
-      {/* Dock for formatting tools */}
-      <Dock 
-        items={formattingItems}
-        panelHeight={68}
-        baseItemSize={50}
-        magnification={70}
-        isVisible={isSelecting}
-        position={selectionPosition}
-        className="bg-black backdrop-blur-md"
-      />
     </Form>
   );
 }

@@ -90,25 +90,20 @@ export default function Team() {
       </div>
 
       {/* Team members grid with staggered layout */}
-      <div className="container mx-auto px-6">
+      <div className="container mx-auto px-6  flex flex-col items-center justify-center">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
           {/* First row */}
           <div className="flex flex-row">
-            <div className="relative rounded-xl overflow-hidden">
+            <div className="relative h-full rounded-xl overflow-hidden">
               <img
                 src={teamMembers[0].image}
                 alt={teamMembers[0].name}
-                className="w-auto h-96 bg-orange-500 object-cover aspect-[3/4]"
+                className="w-full h-96 bg-orange-500 object-cover rounded-xl aspect-[3/4]"
               />
-              <button className="absolute bottom-6 right-6 w-12 h-12 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M12 5V19M5 12H19" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </button>
             </div>
             <div className="ml-6 flex flex-col justify-center">
-              <div className="uppercase text-gray-500 text-lg mb-1">{teamMembers[0].role}</div>
-              <h3 className="text-4xl font-bold mb-4 text-primary-500">{teamMembers[0].name}</h3>
+              <div className="uppercase text-gray-500 text-lg mb-1 font-semibold">{teamMembers[0].role}</div>
+              <h3 className="text-4xl font-bold mb-4 text-primary-500" style={{fontSize: '28px', lineHeight: '1.2'}}>{teamMembers[0].name}</h3>
               <ul className="mb-4">
                 {teamMembers[0].skills.map((skill, index) => (
                   <li key={index} className="flex items-center text-sm text-gray-400 mb-1">
@@ -137,18 +132,19 @@ export default function Team() {
             </div>
           </div>
 
-          {/* Second row - offset down */}
+
+          {/* Second row */}
           <div className="flex flex-row mt-24">
-            <div className="relative rounded-xl overflow-hidden">
-              <img
-                src={teamMembers[1].image}
-                alt={teamMembers[1].name}
-                className="w-auto h-96 bg-yellow-500 object-cover aspect-[3/4]"
-              />
-            </div>
+  <div className="relative rounded-xl overflow-hidden">
+    <img
+      src={teamMembers[1].image}
+      alt={teamMembers[1].name}
+      className="w-auto h-96 bg-yellow-500 object-cover aspect-[3/4]"
+    />
+  </div>
             <div className="ml-6 flex flex-col justify-center">
-              <div className="uppercase text-gray-500 text-lg mb-1">{teamMembers[1].role}</div>
-              <h3 className="text-4xl font-bold mb-4 text-primary-500">{teamMembers[1].name}</h3>
+              <div className="uppercase text-gray-500 text-lg mb-1 font-semibold">{teamMembers[1].role}</div>
+              <h3 className="text-4xl font-bold mb-4 text-primary-500" style={{fontSize: '28px', lineHeight: '1.2'}}>{teamMembers[1].name}</h3>
               <ul className="mb-4">
                 {teamMembers[1].skills.map((skill, index) => (
                   <li key={index} className="flex items-center text-sm text-gray-400 mb-1">
@@ -183,12 +179,12 @@ export default function Team() {
               <img
                 src={teamMembers[2].image}
                 alt={teamMembers[2].name}
-                className="w-auto h-96 bg-red-500 object-cover aspect-[3/4]"
+                className="w-auto h-96 bg-red-500 object-cover rounded-xl aspect-[3/4]"
               />
             </div>
             <div className="ml-6 flex flex-col justify-center">
-              <div className="uppercase text-gray-500 text-lg mb-1">{teamMembers[2].role}</div>
-              <h3 className="text-4xl font-bold mb-4 text-primary-500">{teamMembers[2].name}</h3>
+              <div className="uppercase text-gray-500 text-lg mb-1 font-semibold">{teamMembers[2].role}</div>
+              <h3 className="text-4xl font-bold mb-4 text-primary-500" style={{fontSize: '28px', lineHeight: '1.2'}}>{teamMembers[2].name}</h3>
               <ul className="mb-4">
                 {teamMembers[2].skills.map((skill, index) => (
                   <li key={index} className="flex items-center text-sm text-gray-400 mb-1">
@@ -217,7 +213,7 @@ export default function Team() {
             </div>
           </div>
 
-          {/* Fourth row - offset down */}
+          {/* Fourth row */}
           <div className="flex flex-row mt-24">
             <div className="relative rounded-xl overflow-hidden">
               <img
@@ -225,15 +221,15 @@ export default function Team() {
                 alt={teamMembers[3].name}
                 className="w-auto h-96 bg-blue-500 object-cover aspect-[3/4]"
               />
-              <button className="absolute bottom-6 right-6 w-12 h-12 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center">
+              {/* <button className="absolute bottom-6 right-6 w-12 h-12 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M12 5V19M5 12H19" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
-              </button>
+              </button> */}
             </div>
             <div className="ml-6 flex flex-col justify-center">
-              <div className="uppercase text-gray-500 text-lg mb-1">{teamMembers[3].role}</div>
-              <h3 className="text-4xl font-bold mb-4 text-primary-500">{teamMembers[3].name}</h3>
+              <div className="uppercase text-gray-500 text-lg mb-1 font-semibold">{teamMembers[3].role}</div>
+              <h3 className="text-4xl font-bold mb-4 text-primary-500" style={{fontSize: '28px', lineHeight: '1.2'}}>{teamMembers[3].name}</h3>
               <ul className="mb-4">
                 {teamMembers[3].skills.map((skill, index) => (
                   <li key={index} className="flex items-center text-sm text-gray-400 mb-1">
@@ -261,6 +257,8 @@ export default function Team() {
               </div>
             </div>
           </div>
+        
+        
           {/* Fifth row */}
           <div className="flex flex-row">
             <div className="relative rounded-xl overflow-hidden">
@@ -269,15 +267,15 @@ export default function Team() {
                 alt={teamMembers[4].name}
                 className="w-auto h-96 bg-green-500 object-cover aspect-[3/4]"
               />
-              <button className="absolute bottom-6 right-6 w-12 h-12 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center">
+              {/* <button className="absolute bottom-6 right-6 w-12 h-12 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M12 5V19M5 12H19" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
-              </button>
+              </button> */}
             </div>
             <div className="ml-6 flex flex-col justify-center">
-              <div className="uppercase text-gray-500 text-lg mb-1">{teamMembers[4].role}</div>
-              <h3 className="text-4xl font-bold mb-4 text-primary-500">{teamMembers[4].name}</h3>
+              <div className="uppercase text-gray-500 text-lg mb-1 font-semibold">{teamMembers[4].role}</div>
+              <h3 className="text-4xl font-bold mb-4 text-primary-500" style={{fontSize: '28px', lineHeight: '1.2'}}>{teamMembers[4].name}</h3>
               <ul className="mb-4">
                 {teamMembers[4].skills.map((skill, index) => (
                   <li key={index} className="flex items-center text-sm text-gray-400 mb-1">

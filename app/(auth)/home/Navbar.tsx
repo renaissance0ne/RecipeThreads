@@ -8,7 +8,7 @@ interface NavItemProps {
   href: string;
   label: string;
   isActive: boolean;
-  onClick: () => void;
+  onClick: (e: React.MouseEvent) => void;
   isMobile?: boolean;
 }
 
@@ -27,7 +27,7 @@ const NavItem = ({ href, label, isActive, onClick, isMobile }: NavItemProps) => 
 );
 
 const Navbar = () => {
-  const [activeSection, setActiveSection] = useState('home');
+  const [activeSection, setActiveSection] = useState('hero');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const toggleMobileMenu = () => {
@@ -35,37 +35,56 @@ const Navbar = () => {
   };
 
   const navItems = [
-    { href: '#home', label: 'Home', id: 'home' },
+    { href: '#hero', label: 'Home', id: 'hero' },
     { href: '#about', label: 'About Us', id: 'about' },
     { href: '#explore', label: 'Explore', id: 'explore' },
-    { href: '#difference', label: 'Why Choose Us', id: 'difference' },
-    { href: '#team', label: 'Our Team', id: 'team' },
+    { href: '#ChooseUs', label: 'Why Choose Us', id: 'ChooseUs' },
+    { href: '#Team', label: 'Our Team', id: 'Team' },
   ];
 
-  const smoothScrollTo = (elementId: string) => {
-    const element = document.getElementById(elementId);
+  const handleNavClick = (id: string) => (e: React.MouseEvent) => {
+    e.preventDefault();
+    setActiveSection(id);
+    
+    const element = document.getElementById(id);
     if (!element) return;
     
     const navbarHeight = 80;
     const elementPosition = element.getBoundingClientRect().top;
-    const offsetPosition = elementPosition + window.pageYOffset - navbarHeight;
+    const offsetPosition = elementPosition + window.scrollY - navbarHeight;
     
     window.scrollTo({
       top: offsetPosition,
       behavior: 'smooth'
     });
-  };
-
-  const handleNavClick = (id: string) => {
-    setActiveSection(id);
-    smoothScrollTo(id);
     
     if (mobileMenuOpen) {
       setMobileMenuOpen(false);
     }
   };
 
-  // Rest of the existing useEffect hooks remain the same
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+      
+      // Find which section is currently in view
+      for (const item of navItems) {
+        const element = document.getElementById(item.id);
+        if (!element) continue;
+        
+        const offsetTop = element.offsetTop - 100;
+        const offsetBottom = offsetTop + element.offsetHeight;
+        
+        if (scrollPosition >= offsetTop && scrollPosition < offsetBottom) {
+          setActiveSection(item.id);
+          break;
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-primary-500/20 backdrop-blur-sm border-b border-secondary-500/30">
@@ -107,7 +126,7 @@ const Navbar = () => {
                 href={item.href}
                 label={item.label}
                 isActive={activeSection === item.id}
-                onClick={() => handleNavClick(item.id)}
+                onClick={handleNavClick(item.id)}
               />
             ))}
           </div>
@@ -145,7 +164,7 @@ const Navbar = () => {
                 href={item.href}
                 label={item.label}
                 isActive={activeSection === item.id}
-                onClick={() => handleNavClick(item.id)}
+                onClick={handleNavClick(item.id)}
                 isMobile={true}
               />
             ))}
