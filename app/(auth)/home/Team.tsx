@@ -38,7 +38,7 @@ export default function Team() {
       }
     },
     {
-      name: "LAASYA DAASI",
+      name: "LAASYA DASI",
       role: "UI DESIGNER",
       image: "/assets/member3.jpg",
       skills: ["VISUAL DESIGNER", "CONTENT STRATEGIST", "PERFORMANCE OPTIMISER"],
