@@ -49,10 +49,10 @@ export default function ChooseUs() {
             <SpotlightCard
               key={index}
               spotlightColor="rgba(111, 45, 168, 0.4)"
-              className="p-8 bg-dark-2 border border-gray-800 rounded-xl h-full"
+              className="p-8 bg-dark-2 border border-gray-800 rounded-xl h-full flex flex-col"
             >
               <h3 className="text-2xl font-bold mb-4 text-purple-300">{card.title}</h3>
-              <p className="text-gray-300">{card.content}</p>
+              <p className="text-gray-300 flex-grow">{card.content}</p>
             </SpotlightCard>
           ))}
         </div>
