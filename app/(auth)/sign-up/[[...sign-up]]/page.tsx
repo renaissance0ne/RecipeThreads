@@ -16,9 +16,9 @@ export default function SignUpPage() {
   };
 
   return (
-    <div className="min-h-screen flex w-full">
-      {/* Left half - Sign-up component */}
-      <div className="w-1/2 flex flex-col items-center justify-center bg-black p-8">
+    <div className="min-h-screen flex flex-col md:flex-row w-full">
+      {/* Sign-up component - Full width on mobile, half width on desktop */}
+      <div className="w-full md:w-1/2 flex flex-col items-center justify-center bg-black p-4 md:p-8">
         <SpotlightCard 
           spotlightColor="rgba(111, 45, 168, 0.4)"
           className="w-full max-w-md"
@@ -43,7 +43,7 @@ export default function SignUpPage() {
                   </div>
                 </div>
 
-                <div className="grid grid-cols-2 gap-x-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-3 gap-y-2">
                   <Clerk.Field name="firstName" className="space-y-1">
                     <Clerk.Label className="text-sm font-medium text-gray-300">
                       First name
@@ -157,8 +157,8 @@ export default function SignUpPage() {
         </div>
       </div>
 
-      {/* Right half - Full image */}
-      <div className="w-1/2 relative">
+      {/* Right half - Image only on medium screens and larger */}
+      <div className="hidden md:block md:w-1/2 relative">
         <Image 
           src="/assets/sup.jpg" 
           alt="Sign-up background" 

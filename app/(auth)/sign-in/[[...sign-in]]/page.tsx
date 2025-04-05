@@ -14,9 +14,9 @@ export default function SignInPage(): ReactElement {
   };
 
   return (
-    <div className="min-h-screen flex w-full">
-      {/* Left half - Sign-in component */}
-      <div className="w-1/2 flex flex-col items-center justify-center bg-black p-8">
+    <div className="min-h-screen flex flex-col md:flex-row w-full">
+      {/* Sign-in component - Full width on mobile, half width on desktop */}
+      <div className="w-full md:w-1/2 flex flex-col items-center justify-center bg-black p-4 md:p-8">
         <SpotlightCard 
           spotlightColor="rgba(111, 45, 168, 0.4)"
           className="w-full max-w-md"
@@ -24,7 +24,7 @@ export default function SignInPage(): ReactElement {
           <SignIn.Root>
             <SignIn.Step
               name="start"
-              className="py-10 px-8 space-y-6"
+              className="py-8 px-6 md:py-10 md:px-8 space-y-6"
             >
               <div className="space-y-2 text-center">
                 <h2 className="text-xl font-semibold text-white">Sign in to Ambrosia</h2>
@@ -84,7 +84,7 @@ export default function SignInPage(): ReactElement {
               </p>
             </SignIn.Step>
 
-            <SignIn.Step name="verifications" className="py-10 px-8 space-y-6">
+            <SignIn.Step name="verifications" className="py-8 px-6 md:py-10 md:px-8 space-y-6">
               <Clerk.Field name="code" className="space-y-2">
                 <Clerk.Label className="text-sm font-medium text-gray-300">
                   Enter the verification code
@@ -107,7 +107,7 @@ export default function SignInPage(): ReactElement {
         </SpotlightCard>
 
         {/* Added text below the component */}
-        <div className="mt-8 text-center max-w-md">
+        <div className="mt-6 md:mt-8 text-center max-w-md px-4">
           <p className="text-gray-400 text-sm">
             By signing in, you agree to our <a href="/terms" className="text-purple-400 hover:text-purple-300">Terms of Service</a> and <a href="/privacy" className="text-purple-400 hover:text-purple-300">Privacy Policy</a>.
           </p>
@@ -120,8 +120,8 @@ export default function SignInPage(): ReactElement {
         </div>
       </div>
 
-      {/* Right half - Full image */}
-      <div className="w-1/2 relative">
+      {/* Right half - Full image (hidden on mobile) */}
+      <div className="hidden md:block w-1/2 relative">
         <Image 
           src="/assets/sin.jpg" 
           alt="Sign-in background" 
