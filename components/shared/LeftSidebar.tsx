@@ -18,8 +18,9 @@ const LeftSidebar = () => {
             (pathname.includes(link.route) && link.route.length > 1) || 
             pathname === link.route;
           
+          // Ensure userId exists before appending it to the profile route
           const finalRoute = 
-            link.route === "/profile" 
+            link.route === "/profile" && userId
               ? `${link.route}/${userId}` 
               : link.route;
 
