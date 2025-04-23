@@ -52,8 +52,29 @@ Live site: [ambrosia-chi.vercel.app](https://ambrosia-chi.vercel.app/home)
 
 3. Set up environment variables
    Create a `.env.local` file in the root directory and add your Clerk API keys and other environment variables
+   ```bash
+   # Clerk configuration
+   NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=your_clerk_publishable_key_here
+   CLERK_SECRET_KEY=your_clerk_secret_key_here
+   
+   NEXT_PUBLIC_CLERK_SIGN_IN_URL=/sign-in
+   NEXT_PUBLIC_CLERK_SIGN_UP_URL=/sign-up
+   NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL=/onboarding
+   NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=/
+   
+   # MongoDB connection string
+   MONGODB_URL=your_mongodb_connection_string_here
+   
+   # UploadThing credentials
+   UPLOADTHING_SECRET=your_uploadthing_secret_here
+   UPLOADTHING_APP_ID=your_uploadthing_app_id_here
+   
+   # Gemini API key
+   GEMINI_API_KEY=your_gemini_api_key_here
+   ```
 
-4. Run the development server
+
+5. Run the development server
    ```bash
    npm run dev
    # or
@@ -64,7 +85,7 @@ Live site: [ambrosia-chi.vercel.app](https://ambrosia-chi.vercel.app/home)
    bun dev
    ```
 
-5. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result
+6. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result
 
 ## Project Structure
 
