@@ -30,7 +30,7 @@ export default function Team() {
       name: "SHASHANK MATAM",
       role: "DEV OPS ENGINEER",
       image: "/assets/member2.jpg",
-      skills: ["LOGO DESIGN", "BRAND MESSAGING", "VISUAL IDENTITY"],
+      skills: ["DEV OPS", "PERFORMANCE OPTIMIZER", "DATABASE ARCHITECTURE"],
       socials: {
         github: "http://github.com/shashank39172",
         instagram: "https://www.instagram.com/shashank_39172?igsh=MW11c3FlbnA4d3doYQ==",
@@ -41,7 +41,7 @@ export default function Team() {
       name: "LAASYA DASI",
       role: "UI DESIGNER",
       image: "/assets/member3.jpg",
-      skills: ["VISUAL DESIGNER", "CONTENT STRATEGIST", "PERFORMANCE OPTIMISER"],
+      skills: ["VISUAL DESIGNER", "CONTENT STRATEGIST", "LOGO DESIGN"],
       socials: {
         github: "https://github.com/DasiLaasya",
         instagram: "https://www.instagram.com/dasilaasya?igsh=MW82aDhid3A0dHp1aw==",
@@ -64,7 +64,7 @@ export default function Team() {
       name: "DHRUV PANAKANTI",
       role: "PROJECT ANALYST",
       image: "/assets/member5.jpg",
-      skills: ["API DEVELOPMENT", "DATABASE ARCHITECTURE", "CLOUD DEPLOYMENT"],
+      skills: ["BRAND MESSAGING", "VISUAL IDENTITY", "CLOUD DEPLOYMENT"],
       socials: {
         github: "https://github.com/DhruvPanakanti",
         instagram: "https://www.instagram.com/tensai_dhruv_10?igsh=MWthaTUzeGxieGFvZA%3D%3D&utm_source=qr",
